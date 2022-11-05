@@ -21,10 +21,7 @@ jobs:
     - name: Build Docs
       run: yarn generate-docs
 
-    - name: Push Wiki Changes
-      uses: Andrew-Chen-Wang/github-wiki-action@v3
-      env:
-        WIKI_DIR: docs
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GH_MAIL: ${{ secrets.EMAIL }}
-        GH_NAME: ${{ github.repository_owner }}
+    - name: Publish Docs Changes
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: docs # The folder the action should deplo
