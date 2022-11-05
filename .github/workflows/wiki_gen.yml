@@ -22,6 +22,8 @@ jobs:
       run: yarn generate-docs
 
     - name: Publish Docs Changes
-      uses: JamesIves/github-pages-deploy-action@v4
+      uses: tsunematsu21/actions-publish-gh-pages@v1.0.2
       with:
-        folder: docs # The folder the action should deplo
+        dir: docs
+        branch: gh-pages
+        token: ${{ secrets.ACCESS_TOKEN }}
