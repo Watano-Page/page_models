@@ -10,10 +10,13 @@ import pkg from './package.json'
 export default [
     {
         input: (() => {
-            let input = {}
+            const input = {}
             readdirSync('src')
                 .filter((e) => e.endsWith('.ts') && e !== 'bundle.ts')
-                .forEach((mod) => (input[`${mod.replace('.ts', '')}`] = `./src/${mod}`))
+                .forEach(
+                    (mod) =>
+                        (input[`${mod.replace('.ts', '')}`] = `./src/${mod}`)
+                )
             return input
         })(),
         treeshake: true,
@@ -25,74 +28,73 @@ export default [
                 format: 'cjs',
                 chunkFileNames: '[name]-[hash].cjs',
                 exports: 'named',
-                globals: {}
+                globals: {},
             },
             {
                 dir: 'dist/',
                 entryFileNames: '[name].js',
                 format: 'esm',
                 exports: 'named',
-                globals: {}
-            }
+                globals: {},
+            },
         ],
         plugins: [
             commonjs({}),
             resolve({
                 // pass custom options to the resolve plugin
                 customResolveOptions: {
-                    moduleDirectories: ['node_modules']
-                }
+                    moduleDirectories: ['node_modules'],
+                },
             }),
             typescript({
-                tsconfig: './tsconfig.json'
+                tsconfig: './tsconfig.json',
             }),
             babel({
                 configFile: false,
                 presets: [['@babel/preset-env'], ['@babel/preset-typescript']],
-                babelHelpers: 'bundled'
+                babelHelpers: 'bundled',
             }),
-            terser()
+            terser(),
         ],
         external: [
             ...Object.keys(pkg.dependencies || {}),
-            ...Object.keys(pkg.peerDependencies || {})
-        ]
+            ...Object.keys(pkg.peerDependencies || {}),
+        ],
     },
     {
         input: {
-            bundle: './src/bundle.ts'
+            bundle: './src/bundle.ts',
         },
         output: [
             {
-                name: '__TAURI__',
-                dir: '../../core/tauri/scripts',
+                dir: 'dist/',
                 entryFileNames: 'index.js',
                 format: 'umd',
                 plugins: [
                     getBabelOutputPlugin({
                         presets: [['@babel/preset-env', { modules: 'umd' }]],
-                        allowAllFormats: true
+                        allowAllFormats: true,
                     }),
-                    terser()
+                    terser(),
                 ],
-                globals: {}
-            }
+                globals: {},
+            },
         ],
         plugins: [
             sucrase({
                 exclude: ['node_modules'],
-                transforms: ['typescript']
+                transforms: ['typescript'],
             }),
             resolve({
                 // pass custom options to the resolve plugin
                 customResolveOptions: {
-                    moduleDirectories: ['node_modules']
-                }
-            })
+                    moduleDirectories: ['node_modules'],
+                },
+            }),
         ],
         external: [
             ...Object.keys(pkg.dependencies || {}),
-            ...Object.keys(pkg.peerDependencies || {})
-        ]
-    }
+            ...Object.keys(pkg.peerDependencies || {}),
+        ],
+    },
 ]
