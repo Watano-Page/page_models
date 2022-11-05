@@ -5,14 +5,17 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:prettier/recommended"
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
     ],
     "overrides": [
         {
             "files": [
-                "*.js", "*.ts"
+                "*.js",
+                "*.ts"
             ],
             "parserOptions": {
+                "parser": "@typescript-eslint/parser",
                 "ecmaVersion": "latest",
                 "sourceType": "module"
             }
