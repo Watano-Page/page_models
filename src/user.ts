@@ -1,10 +1,16 @@
-import { InferSchemaType, Schema } from 'mongoose'
+import { Schema, Document as MongoDocument, model } from 'mongoose'
 
-const UserSchema = new Schema({})
+const schemaName = 'User'
 
-type User = InferSchemaType<typeof UserSchema>
-
-export {
-    User,
-    UserSchema
+interface IUser extends MongoDocument {
+    name: string
+    area: string
+    mail: string
+    description: string
+    presentationVideo: string
 }
+
+const UserSchema = new Schema<IUser>()
+const User = model<IUser>(schemaName, UserSchema)
+
+export { schemaName, IUser, UserSchema, User }
