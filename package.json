@@ -5,6 +5,13 @@
     "license": "MIT",
     "type": "module",
     "exports": {
+        ".": "./src/index.ts",
+        "user": "./src/user.ts",
+        "job": "./src/job.ts",
+        "podcast": "./src/podcast.ts",
+        "project": "./src/project.ts",
+        "socialmedia": "./src/socialmedia.ts",
+        "style": "./src/style.ts",
         "./package.json": "./package.json"
     },
     "scripts": {
