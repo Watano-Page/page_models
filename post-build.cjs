@@ -1,4 +1,4 @@
-const { readFileSync, readdirSync, writeFileSync, copyFileSync } = require('fs')
+import { readFileSync, readdirSync, writeFileSync, copyFileSync } from 'fs'
 
 // append our api modules to `exports` in `package.json` then write it to `./dist`
 const pkg = JSON.parse(readFileSync('package.json', 'utf8'))

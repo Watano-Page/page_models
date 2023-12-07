@@ -1,6 +1,6 @@
 {
     "out": "docs",
-    "theme": "oxide",
+    "theme": "default",
     "name": "Watanoge Page Models",
     "excludePrivate": true,
     "excludeProtected": true,

@@ -5,7 +5,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import sucrase from '@rollup/plugin-sucrase'
 import babel, { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import typescript from '@rollup/plugin-typescript'
-import pkg from './package.json'
+import pkg from './package.json' assert { type: 'json' }
 
 export default [
     {
@@ -19,8 +19,6 @@ export default [
                 )
             return input
         })(),
-        treeshake: true,
-        perf: true,
         output: [
             {
                 dir: 'dist/',
@@ -39,13 +37,6 @@ export default [
             },
         ],
         plugins: [
-            commonjs({}),
-            resolve({
-                // pass custom options to the resolve plugin
-                customResolveOptions: {
-                    moduleDirectories: ['node_modules'],
-                },
-            }),
             typescript({
                 tsconfig: './tsconfig.json',
             }),
@@ -84,12 +75,6 @@ export default [
             sucrase({
                 exclude: ['node_modules'],
                 transforms: ['typescript'],
-            }),
-            resolve({
-                // pass custom options to the resolve plugin
-                customResolveOptions: {
-                    moduleDirectories: ['node_modules'],
-                },
             }),
         ],
         external: [
